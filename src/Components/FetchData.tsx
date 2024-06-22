@@ -36,17 +36,19 @@ export const useFetchData = () => {
     useEffect(() => {
         const fetchData = async () =>{
             try{
-                const response = await fetch('https://api.thedogapi.com/v1/breeds?limit=16&page=1');
+                const response = await fetch('https://api.thedogapi.com/v1/breeds?limit=16&page=3');
                 if(!response.ok){
                     throw new Error('There was a problem fetching Data')
                 }else{
                     const data: fetchType[] = await response.json();
-                    setApi(data);
+                    
 
                     const newData = await Promise.all(data.map(async(breed) =>{
                         const imgUrl = await fetchImageById(breed.reference_image_id);
                         return {...breed, image_url: imgUrl}
                     }));
+
+                    setApi(newData);
                 }
             }catch(error){
                 if (error instanceof Error) {
@@ -59,8 +61,6 @@ export const useFetchData = () => {
 
         fetchData()
     }, []);
-
-
 
     return {
         api,
