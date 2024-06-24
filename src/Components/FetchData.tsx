@@ -15,10 +15,10 @@ type fetchType =[
     }
 ]
 
-export const useFetchData = () => {
+export const useFetchData = (pageNum: number) => {
     const [api, setApi] = useState<fetchType[]>([]);
     const [fetchError, setFetchError] = useState<string>('');
-
+    
     const fetchImageById = async (id: string) => {
         try {
             const response = await fetch(`https://api.thedogapi.com/v1/images/${id}`);
@@ -36,14 +36,14 @@ export const useFetchData = () => {
     useEffect(() => {
         const fetchData = async () =>{
             try{
-                const response = await fetch('https://api.thedogapi.com/v1/breeds?limit=16&page=3');
+                const response = await fetch(`https://api.thedogapi.com/v1/breeds?limit=16&page=${pageNum}`);
                 if(!response.ok){
                     throw new Error('There was a problem fetching Data')
                 }else{
                     const data: fetchType[] = await response.json();
                     
 
-                    const newData = await Promise.all(data.map(async(breed) =>{
+                    const newData:fetchType[] = await Promise.all(data.map(async(breed: any) =>{
                         const imgUrl = await fetchImageById(breed.reference_image_id);
                         return {...breed, image_url: imgUrl}
                     }));
@@ -60,10 +60,10 @@ export const useFetchData = () => {
         };
 
         fetchData()
-    }, []);
+    }, [pageNum]);
 
     return {
         api,
-        fetchError
+        fetchError,
     }
 }
