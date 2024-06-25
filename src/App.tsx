@@ -27,6 +27,7 @@ const App = () => {
       }
     }
 
+    //navition to the about page
     const HandleNavigation =(Name) => {
       navigation(`/AboutBreed/:${Name}`);
     }
@@ -36,7 +37,7 @@ const App = () => {
       <UseAutocomplete />
       {api.length <= 0 ? <h1 className="text-2xl font-bold mb-4">Loading Breeds</h1> : <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {api.map((item: any): React.JSX.Element => (
-          <div onClick={() => HandleNavigation(item.name)} key={item.id} className="bg-white rounded-lg shadow p-4">
+          <div onClick={() => HandleNavigation(item.reference_image_id)} key={item.id} className="bg-white rounded-lg shadow p-4">
             <h2 className="text-xl font-semibold">{item.name}</h2>
             <p>Breed Group: {item.breed_group}</p>
             {item.image_url && (
