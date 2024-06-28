@@ -46,20 +46,6 @@ const AboutBreed = () => {
       fetchData();
     }, [dataSlice]);
 
-    console.log(api);
-
-    /**
-     *
-  bred_for: string;
-  country_code: string;
-  height: { imperial: string; metric: string };
-  id: number;
-  life_span: string;
-  name: string;
-  reference_image_id: string;
-  temperament: string;
-  weight: { imperial: string; metric: string };
-     */
     return (
       <div className='bg-green-500 flex justify-center'>
         <div className="bg-white object-contain rounded-lg shadow pb-[10px] px-[30px] pt-[30px] space-y-[30px] m-auto">
